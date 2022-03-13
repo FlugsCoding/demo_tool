@@ -107,7 +107,7 @@ const formatTimes = () => {
     timeDifference(startTime, targetTime)
 }
 
-const checkErrors = (input, field, func, except) => {
+const checkErrors = (input, field, REPLACE, except) => {
     if (input.value == '' || isNaN(input.value) || input.value < 0 || input.value.indexOf(' ') >= 0){
         field.classList.add('error')
     } else if (except == 'tick'){
@@ -116,6 +116,6 @@ const checkErrors = (input, field, func, except) => {
         manualEditTick()
     } else {
         field.classList.remove('error')
-        func
+        // CALL FUNCTION
     }
 }
