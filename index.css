@@ -9,3 +9,7 @@ body{
 .pushed{
     padding-top:80px!important;
 }
+
+button{
+    float:right;
+}

@@ -1,9 +1,11 @@
-const tickrate = 20
-const tick = 1/20
+// Global Variables
 
-const hours = 3600*tickrate
-const minutes = 60*tickrate
-const seconds = 1*tickrate
+const tickrate = 20
+const tick = 1 / 20
+
+const hours = 3600 * tickrate
+const minutes = 60 * tickrate
+const seconds = 1 * tickrate
 
 // Tick Calculator
 
@@ -16,21 +18,6 @@ const tcTicksInput = document.getElementById('tcTick');
 const setTicks = (value) => {
     document.getElementById('tcTickField').classList.remove('error')
     tcTicksInput.value = value
-}
-
-const clearErrors = () => {
-    document.getElementById('tcHoursField').classList.remove('error')
-    document.getElementById('tcMinutesField').classList.remove('error')
-    document.getElementById('tcSecondsField').classList.remove('error')
-    document.getElementById('tcTickField').classList.remove('error')
-}
-
-const clearInputs = () => {
-    tcHoursInput.value = 0
-    tcMinsInput.value = 0
-    tcSecsInput.value = 0
-    tcTicksInput.value = 0
-    clearErrors()
 }
 
 const manualEditTick = () => {
@@ -68,7 +55,7 @@ const pfTargetHoursInput = document.getElementById('pfTargetHours')
 const pfTargetMinsInput = document.getElementById('pfTargetMinutes')
 const pfTargetSecsInput = document.getElementById('pfTargetSeconds')
 
-const pfTickValue = document.getElementById('pfTick');
+const pfTickInput = document.getElementById('pfTick');
 
 function hmsToSeconds(t) {
     const [h, m, s] = t.split(':')
@@ -87,15 +74,13 @@ const timeDifference = (startTime, targetTime) => {
     const result = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]); 
 
     secondsToTick = result / tick
-    pfTickValue.innerHTML = secondsToTick
+    pfTickInput.value = secondsToTick
 }
 
 const formatTimes = () => {
     const pfStartHoursValue = document.getElementById('pfStartHours').value
     const pfStartMinsValue = document.getElementById('pfStartMinutes').value
     const pfStartSecsValue = document.getElementById('pfStartSeconds').value
-
-    console.log(pfStartHoursValue)
 
     const pfTargetHoursValue = document.getElementById('pfTargetHours').value
     const pfTargetMinsValue = document.getElementById('pfTargetMinutes').value
@@ -107,15 +92,31 @@ const formatTimes = () => {
     timeDifference(startTime, targetTime)
 }
 
-const checkErrors = (input, field, REPLACE, except) => {
+// Global Functions
+
+const clearErrors = (fields) => {
+    for (let i = 0; i < fields.length; i++) {
+        fields[i].classList.remove('error')
+    }
+}
+
+const clearInputs = (form) => {
+    const forms = [document.getElementById('tc'), document.getElementById('pf')]
+    forms[form-1].reset()
+    clearErrors(document.getElementsByClassName('field tc'))
+    clearErrors(document.getElementsByClassName('field pf'))
+}
+
+const checkErrors = (input, field, func, except) => {
     if (input.value == '' || isNaN(input.value) || input.value < 0 || input.value.indexOf(' ') >= 0){
         field.classList.add('error')
     } else if (except == 'tick'){
         field.classList.remove('error')
-        clearErrors()
+        clearErrors(document.getElementsByClassName('field tc'))
+        clearErrors(document.getElementsByClassName('field pf'))
         manualEditTick()
     } else {
         field.classList.remove('error')
-        // CALL FUNCTION
+        func()
     }
 }

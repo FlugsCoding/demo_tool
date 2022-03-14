@@ -1,95 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Tick Calculator</title>
-    <link rel="stylesheet" type="text/css" href="index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel='stylesheet' type='text/css' href='index.css'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css' integrity='sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==' crossorigin='anonymous' referrerpolicy='no-referrer' />
 </head>
 <body>
-    <div class="ui container">
-            <div class="ui huge pushed center aligned inverted header">DEMO TOOL</div>
+    <div class='ui container'>
+            <div class='ui huge pushed center aligned inverted header'>DEMO TOOL</div>
 
             <!-- Tick Calculator -->
 
-            <div class="ui medium inverted header">Tick Calculator<div class="sub header">Calculate the time of a tick or the tick of a time</div></div>
-            <div class="ui inverted segment">
-                <div class="ui inverted form">
-                      <div class="three fields">
-                        <div id="tcHoursField" class="field">
-                            <label for="tcHours">hours</label>
-                          <input type="text" value=0 id="tcHours" onkeyup="checkErrors(this, document.getElementById('tcHoursField'), 0)" placeholder="enter hours">
+            <div class='ui medium inverted header'>Tick Calculator<div class='sub header'>Calculate the time of a tick or the tick of a time</div></div>
+            <div class='ui inverted segment'>
+                <div class='ui inverted form'>
+                  <form id='tc'>
+                      <div class='three fields'>
+                        <div id='tcHoursField' class='field tc'>
+                            <label for='tcHours'>hours</label>
+                          <input type='text' value=0 id='tcHours' onkeyup='checkErrors(this, document.getElementById(`tcHoursField`), calcTicks)' placeholder='enter hours'>
                         </div>
-                        <div id="tcMinutesField" class="field">
-                            <label for="tcMinutes">minutes</label>
-                          <input type="text" value=0 id="tcMinutes" onkeyup="checkErrors(this, document.getElementById('tcMinutesField'), 0)" placeholder="enter minutes">
+                        <div id='tcMinutesField' class='field tc'>
+                            <label for='tcMinutes'>minutes</label>
+                          <input type='text' value=0 id='tcMinutes' onkeyup='checkErrors(this, document.getElementById(`tcMinutesField`), calcTicks)' placeholder='enter minutes'>
                         </div>
-                        <div id="tcSecondsField" class="field">
-                            <label for="tcSeconds">seconds</label>
-                            <input type="text" value=0 id="tcSeconds" onkeyup="checkErrors(this, document.getElementById('tcSecondsField'), 0)" placeholder="enter seconds">
+                        <div id='tcSecondsField' class='field tc'>
+                            <label for='tcSeconds'>seconds</label>
+                            <input type='text' value=0 id='tcSeconds' onkeyup='checkErrors(this, document.getElementById(`tcSecondsField`), calcTicks)' placeholder='enter seconds'>
                         </div>
                       </div>
                 </div>
             </div>
 
-            <div class="ui inverted form">
-                <div class="inline fields">
-                    <div id="tcTickField" class="field">
-                        <label for="tcTick">tick:</label>
-                        <input type="text" value=0 id="tcTick" onkeyup="checkErrors(this, document.getElementById('tcTickField'), null, 'tick')" placeholder="enter tick">
-                    </div>
-                    <div class="field">
-                        <button onclick="clearInputs()" class="ui small button">clear</button>
+            <div class='ui inverted form'>
+              <button type='button' onclick='clearInputs(1)' class='ui small button'>clear</button>
+                <div class='inline fields'>
+                    <div id='tcTickField' class='field tc'>
+                        <label for='tcTick'>tick:</label>
+                        <input type='text' value=0 id='tcTick' onkeyup='checkErrors(this, document.getElementById(`tcTickField`), null, `tick`)' placeholder='enter tick'>
                     </div>
                 </div>
+              </form>
             </div>
 
             <!-- Place Finder -->
 
-            <div class="ui medium pushed inverted header">Place Finder<div class="sub header">Find the tick for a specific time - write in 24-hour format (hh:mm:ss)</div></div>
-            <div class="ui inverted segment">
-              <div class="ui large header">Demo started:</div>
-                <div class="ui inverted form">
-                    <div class="three fields">
-                        <div id="pfStartHoursField" class="field">
-                            <label for="pfStartHours">hours</label>
-                          <input type="text" value=0 id="pfStartHours" onkeyup="checkErrors(this, document.getElementById('pfStartHoursField'), 1)" placeholder="enter hours">
+            <div class='ui medium pushed inverted header'>Place Finder<div class='sub header'>Find the tick for a specific time - write in 24-hour format (hh:mm:ss)</div></div>
+            <div class='ui inverted segment'>
+              <div class='ui large header'>Demo started:</div>
+                <div class='ui inverted form'>
+                  <form id='pf'>
+                    <div class='three fields'>
+                        <div id='pfStartHoursField' class='field pf'>
+                            <label for='pfStartHours'>hours</label>
+                          <input type='text' value=0 id='pfStartHours' onkeyup='checkErrors(this, document.getElementById(`pfStartHoursField`), formatTimes)' placeholder='enter hours'>
                         </div>
-                        <div id="pfStartMinutesField" class="field">
-                            <label for="pfStartMinutes">minutes</label>
-                          <input type="text" value=0 id="pfStartMinutes" onkeyup="checkErrors(this, document.getElementById('pfStartMinutesField'), 1)" placeholder="enter minutes">
+                        <div id='pfStartMinutesField' class='field pf'>
+                            <label for='pfStartMinutes'>minutes</label>
+                          <input type='text' value=0 id='pfStartMinutes' onkeyup='checkErrors(this, document.getElementById(`pfStartMinutesField`), formatTimes)' placeholder='enter minutes'>
                         </div>
-                        <div id="pfStartSecondsField" class="field">
-                            <label for="pfStartSeconds">seconds</label>
-                            <input type="text" value=0 id="pfStartSeconds" onkeyup="checkErrors(this, document.getElementById('pfStartSecondsField'), 1)" placeholder="enter seconds">
+                        <div id='pfStartSecondsField' class='field pf'>
+                            <label for='pfStartSeconds'>seconds</label>
+                            <input type='text' value=0 id='pfStartSeconds' onkeyup='checkErrors(this, document.getElementById(`pfStartSecondsField`), formatTimes)' placeholder='enter seconds'>
                         </div>
                     </div>
                 </div>
 
-                <div class="ui large header">Go to:</div>
-                <div class="ui inverted form">
-                    <div class="three fields">
-                      <div id="pfTargetHoursField" class="field">
-                          <label for="pfTargetHours">hours</label>
-                        <input type="text" value=0 id="pfTargetHours" onkeyup="checkErrors(this, document.getElementById('pfTargetHoursField'), 1)" placeholder="enter hours">
+                <div class='ui large header'>Go to:</div>
+                <div class='ui inverted form'>
+                    <div class='three fields'>
+                      <div id='pfTargetHoursField' class='field pf'>
+                          <label for='pfTargetHours'>hours</label>
+                        <input type='text' value=0 id='pfTargetHours' onkeyup='checkErrors(this, document.getElementById(`pfTargetHoursField`), formatTimes)' placeholder='enter hours'>
                       </div>
-                      <div id="pfTargetMinutesField" class="field">
-                          <label for="pfTargetMinutes">minutes</label>
-                        <input type="text" value=0 id="pfTargetMinutes" onkeyup="checkErrors(this, document.getElementById('pfTargetMinutesField'), 1)" placeholder="enter minutes">
+                      <div id='pfTargetMinutesField' class='field pf'>
+                          <label for='pfTargetMinutes'>minutes</label>
+                        <input type='text' value=0 id='pfTargetMinutes' onkeyup='checkErrors(this, document.getElementById(`pfTargetMinutesField`), formatTimes)' placeholder='enter minutes'>
                       </div>
-                      <div id="pfTargetSecondsField" class="field">
-                          <label for="pfTargetSeconds">seconds</label>
-                          <input type="text" value=0 id="pfTargetSeconds" onkeyup="checkErrors(this, document.getElementById('pfTargetSecondsField'), 1)" placeholder="enter seconds">
+                      <div id='pfTargetSecondsField' class='field pf'>
+                          <label for='pfTargetSeconds'>seconds</label>
+                          <input type='text' value=0 id='pfTargetSeconds' onkeyup='checkErrors(this, document.getElementById(`pfTargetSecondsField`), formatTimes)' placeholder='enter seconds'>
                       </div>
                 </div>
               </div>
             </div>
 
-            <span style="color:rgba(255,255,255,.9)">tick:&nbsp;&nbsp;</span><div id="pfTick" class="ui medium label">0</div>
+            <div class='ui inverted form'>
+              <button type='button' onclick='clearInputs(2)' class='ui small button'>clear</button>
+                <div class='inline fields'>
+                    <div id='pfTickField' class='field pf'>
+                        <label for='pfTick'>tick:</label>
+                        <input type='text' value=0 id='pfTick' readonly placeholder='tick'>
+                    </div>
+                </div>
+              </form>
+            </div>
+
+
+            <footer class='pushed'>
+              <div class='ui container'>
+                <p style='color:rgba(255,255,255,.9);float:right'>created by <a style='text-decoration: underline;color:rgba(255,255,255,.9)' href='https://perpheads.com/members/flugs.6733/'>flugs</a></p>
+              </div>
+            </footer>
     </div>
 
-    <script src="index.js"></script>
+    <script src='index.js'></script>
 </body>
 </html>
