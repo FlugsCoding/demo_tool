@@ -1,6 +1,8 @@
 # DEMO TOOL
-Simple demo tool created for [PERPHeads](https://perpheads.com/forums/). Features:
+## INFO
+Simple demo tool created for [PERPHeads](https://perpheads.com/forums/). This project is still in "beta", it currently houses two features. Check it out at https://flugscoding.github.io/demo_tool/.
 
+## FEATURES 
 ### Tick Calculator
 Allows user to find the tick relative to a time value that they have input. 
 
